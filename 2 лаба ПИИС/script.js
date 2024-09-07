@@ -10,7 +10,7 @@ const personalMovieDB = {
 
 // 2) Функция для вывода объекта movies в виде таблицы
 function displayMovies() { 
-    if (!personalMovieDB.privat) { //проверка свойства privat если false открыто продолжаем
+   
         const table = document.createElement('table'); //создаем элемент таблицы
         table.style.borderCollapse = 'collapse'; //границы ячеек будут сливаться
         
@@ -46,8 +46,9 @@ function displayMovies() {
         }
 
         document.getElementById('movies-table').appendChild(table); //Добавляем таблицу в элемент с id 'movies-table'
-    }
+    
 }
 
 // Вызов функции для отображения фильмов
-displayMovies(); 
+ if (!personalMovieDB.privat) { 
+displayMovies()}; 
