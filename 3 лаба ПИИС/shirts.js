@@ -90,5 +90,3 @@ const shirts = [{
         "back": "shirt_images/default-m-back.png"
     }
 }];
-
-//export default shirts;
