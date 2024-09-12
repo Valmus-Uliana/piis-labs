@@ -1,4 +1,4 @@
-import shirts from '/shirts.js';
+//import shirts from '/shirts.js';
 
 function generateContent() {
     const container = document.getElementById('shirts-container');
