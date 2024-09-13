@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Получаем контейнер для кнопок выбора цвета
         const colorButtonsContainer = document.getElementById('color-buttons');
         // Создаем кнопки для каждого доступного цвета рубашки
-        Object.keys(selectedShirt.colors).forEach(color => {
+        Object.keys(selectedShirt.colors).forEach(color => { //вернет массив всех ключей (названий цветов) этого объекта.
             const button = document.createElement('button');
             button.style.backgroundColor = color;
             button.textContent = color;
