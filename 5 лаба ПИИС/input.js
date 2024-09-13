@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
           isSticky = true; // Устанавливаем флаг приклеивания в true
           draggedElement = target; // Устанавливаем перетаскиваемый элемент
           draggedElement.style.position = 'absolute'; // Делаем позицию элемента абсолютной
-          draggedElement.style.backgroundColor = 'pink'; // Изменяем цвет фона
+          draggedElement.style.backgroundColor = 'yellow'; // Изменяем цвет фона
           moveAt(e.pageX, e.pageY); // Перемещаем элемент к позиции курсора
         } else { // Если элемент уже приклеен
           isSticky = false; // Устанавливаем флаг приклеивания в false
