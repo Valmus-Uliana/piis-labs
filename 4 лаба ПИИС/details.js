@@ -99,55 +99,65 @@ document.addEventListener('DOMContentLoaded', () => {
     const selectedShirtIndex = localStorage.getItem('selectedShirt');
     // Получаем данные о выбранной рубашке из массива shirts
     const selectedShirt = shirts[selectedShirtIndex];
+    // Переменная для хранения текущего выбранного цвета
+    let currentColor = 'white';
+    // Переменная для хранения текущей стороны (передняя или задняя)
+    let currentSide = 'front';
 
     // Проверяем, есть ли выбранная рубашка
     if (selectedShirt) {
         // Генерируем HTML-контент для отображения деталей рубашки
         detailsContainer.innerHTML = `
-            <h2>${selectedShirt.name}</h2>
-            <img src="${selectedShirt.colors.white.front}" alt="${selectedShirt.name}">
-            <p>Price: ${selectedShirt.price}</p>
-            <p>${selectedShirt.description}</p>
             <div>
-                <button onclick="showFront()">Front</button>
-                <button onclick="showBack()">Back</button>
+                <h2>${selectedShirt.name}</h2>
+                <img id="shirt-image" src="${selectedShirt.colors[currentColor][currentSide]}" alt="${selectedShirt.name}">
+                <p>Price: ${selectedShirt.price}</p>
+                <p>${selectedShirt.description}</p>
+                <div>
+                    <button id="front-button">Front</button>
+                    <button id="back-button">Back</button>
+                </div>
+                <div id="color-buttons"></div>
             </div>
-            <div id="color-buttons"></div>
         `;
 
         // Получаем контейнер для кнопок выбора цвета
         const colorButtonsContainer = document.getElementById('color-buttons');
         // Создаем кнопки для каждого доступного цвета рубашки
-        Object.keys(selectedShirt.colors).forEach(color => { //вернет массив всех ключей (названий цветов) этого объекта.
+        Object.keys(selectedShirt.colors).forEach(color => {
             const button = document.createElement('button');
             button.style.backgroundColor = color;
             button.textContent = color;
             button.onclick = () => changeColor(color);
             colorButtonsContainer.appendChild(button);
         });
+
+        // Добавляем обработчики событий для кнопок "Front" и "Back"
+        document.getElementById('front-button').addEventListener('click', showFront);
+        document.getElementById('back-button').addEventListener('click', showBack);
     } else {
         // Если рубашка не выбрана, отображаем сообщение
         detailsContainer.innerHTML = '<p>No shirt selected.</p>';
     }
+
+    // Функция для отображения передней стороны рубашки
+    function showFront() {
+        currentSide = 'front';
+        const selectedShirt = shirts[selectedShirtIndex];
+        document.getElementById('shirt-image').src = selectedShirt.colors[currentColor][currentSide];
+    }
+
+    // Функция для отображения задней стороны рубашки
+    function showBack() {
+        currentSide = 'back';
+        const selectedShirt = shirts[selectedShirtIndex];
+        document.getElementById('shirt-image').src = selectedShirt.colors[currentColor][currentSide];
+    }
+
+    // Функция для изменения цвета рубашки
+    function changeColor(color) {
+        currentColor = color;
+        const selectedShirt = shirts[selectedShirtIndex];
+        document.getElementById('shirt-image').src = selectedShirt.colors[currentColor][currentSide];
+    }
 });
-
-// Функция для отображения передней стороны рубашки
-function showFront() {
-    const selectedShirtIndex = localStorage.getItem('selectedShirt');
-    const selectedShirt = shirts[selectedShirtIndex];
-    document.querySelector('img').src = selectedShirt.colors.white.front;
-}
-
-// Функция для отображения задней стороны рубашки
-function showBack() {
-    const selectedShirtIndex = localStorage.getItem('selectedShirt');
-    const selectedShirt = shirts[selectedShirtIndex];
-    document.querySelector('img').src = selectedShirt.colors.white.back;
-}
-
-// Функция для изменения цвета рубашки
-function changeColor(color) {
-    const selectedShirtIndex = localStorage.getItem('selectedShirt');
-    const selectedShirt = shirts[selectedShirtIndex];
-    document.querySelector('img').src = selectedShirt.colors[color].front;
-}
